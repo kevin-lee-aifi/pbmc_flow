@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+R_ENV="/home/workspace/environment/pbmc_flow_r_env"
+
+# Create conda environment with R and essential packages
+conda create -y -p $R_ENV -c conda-forge \
+    r-base=4.3 \
+    r-ggplot2 r-dplyr r-tidyr r-ggalluvial \
+    r-readr r-stringr r-lubridate \
+    r-data.table r-magrittr \
+    r-scales r-viridis r-rcolorbrewer \
+    r-corrplot r-reshape2 \
+    r-irkernel \
+    r-gridextra r-rlang
+
+# Activate the environment
+conda activate $R_ENV
+
+# Install the R Jupyter kernel
+R -e "IRkernel::installspec(name = 'pbmc_flow_r_env', displayname = 'R Environment')"

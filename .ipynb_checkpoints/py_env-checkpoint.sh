@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-PY_ENV="/home/workspace/environment/mm_py_env"
+PY_ENV="/home/workspace/environment/pbmc_flow_py_env"
 
 # Create conda environment with Python and R packages
 conda create -y -p $PY_ENV -c conda-forge \
@@ -16,4 +16,4 @@ conda create -y -p $PY_ENV -c conda-forge \
 conda activate $PY_ENV
 
 # Install the Jupyter kernel
-python -m ipykernel install --user --name=mm_py_env --display-name="Python (PBMC Flow)"
+python -m ipykernel install --user --name=pbmc_flow_py_env --display-name="Python (PBMC Flow)"
