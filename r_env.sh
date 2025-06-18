@@ -8,10 +8,11 @@ conda create -y -p $R_ENV -c conda-forge \
     r-ggplot2 r-dplyr r-tidyr r-ggalluvial \
     r-readr r-stringr r-lubridate \
     r-data.table r-magrittr \
-    r-scales r-viridis r-rcolorbrewer r-patchwork r-cowplot \
+    r-scales r-viridis r-rcolorbrewer r-patchwork r-cowplot r-forcats \
     r-corrplot r-reshape2 \
     r-irkernel \
-    r-gridextra r-rlang
+    r-gridextra r-rlang \
+    r-broom
 
 # Activate the environment
 conda activate $R_ENV
