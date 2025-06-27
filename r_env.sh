@@ -8,9 +8,9 @@ conda create -y -p $R_ENV -c conda-forge \
     r-ggplot2 r-dplyr r-tidyr r-ggalluvial \
     r-readr r-stringr r-lubridate \
     r-data.table r-magrittr \
-    r-scales r-viridis r-rcolorbrewer r-patchwork r-cowplot r-forcats \
+    r-scales r-viridis r-rcolorbrewer r-patchwork r-cowplot r-forcats r-compositions \
     r-corrplot r-reshape2 \
-    r-irkernel \
+    r-irkernel r-tidyverse \
     r-gridextra r-rlang \
     r-broom
 
@@ -18,4 +18,4 @@ conda create -y -p $R_ENV -c conda-forge \
 conda activate $R_ENV
 
 # Install the R Jupyter kernel
-R -e "IRkernel::installspec(name = 'pbmc_flow_r_env', displayname = 'R Environment')"
+R -e "IRkernel::installspec(name = 'pbmc_flow_r_env', displayname = 'R (PBMC Flow)')"
