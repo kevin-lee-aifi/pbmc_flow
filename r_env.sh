@@ -12,7 +12,7 @@ conda create -y -p $R_ENV -c conda-forge \
     r-corrplot r-reshape2 \
     r-irkernel r-tidyverse \
     r-gridextra r-rlang \
-    r-broom
+    r-broom r-ggpubr
 
 # Activate the environment
 conda activate $R_ENV
