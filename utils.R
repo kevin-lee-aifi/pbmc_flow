@@ -25,8 +25,12 @@ theme_by_timepoint <- function(base_size = 14,
         axis.text.x = element_text(angle = 90, hjust = 1),
         legend.position = "none"
       ),
-    scale_fill_manual(values = tp_color_map),
-    scale_color_manual(values = color_map)
+    scale_fill_manual(values = tp_color_map, name = "visit"),
+    scale_color_manual(values = color_map, name = "subject"),
+    guides(
+      fill = guide_legend(order = 1),
+      color = guide_legend(order = 2)
+    )
   )
 }
 
@@ -35,15 +39,12 @@ testCelltype_paired <- function(Mat, celltype, pairsOfTimes, size=5) {
   
   cMat$Value = cMat$cell_type_frac_total
   
-  # Get all consecutive time point pairs
   time_points <- levels(cMat$visit)
   
   pairsOfTimes = pairsOfTimes
   
-  # Identify subjects with paired data for plotting
   subjects_with_pairs <- c()
   
-  # Loop through consecutive time points
   pairwise_results <- data.frame(
     Time1 = character(),
     Time2 = character(),
@@ -51,7 +52,6 @@ testCelltype_paired <- function(Mat, celltype, pairsOfTimes, size=5) {
     stringsAsFactors = FALSE
   )
   for (i in 1:length(pairsOfTimes)) {
-    # Subset data for the two consecutive time points
     pairwise_data <- subset(cMat, visit %in% pairsOfTimes[[i]])
     pairwise_data = dcast(pairwise_data, subject ~ visit, value.var = 'Value')
     pairwise_data = pairwise_data[ !is.na(pairwise_data[,2][[1]]) & 
@@ -59,7 +59,6 @@ testCelltype_paired <- function(Mat, celltype, pairsOfTimes, size=5) {
     
     subjects_with_pairs <- c(subjects_with_pairs, pairwise_data$subject)
     
-    # Perform a paired t-test
     test_result <- wilcox.test(
       pairwise_data[,2][[1]], 
       pairwise_data[,3][[1]],
@@ -67,7 +66,6 @@ testCelltype_paired <- function(Mat, celltype, pairsOfTimes, size=5) {
     )
     
     medDiff = median( pairwise_data[,2][[1]]-pairwise_data[,3][[1]])
-    # Store the results
     pval =test_result$p.value
     pairwise_results <- rbind(pairwise_results, data.frame(
       Time1 = pairsOfTimes[[i]][1],
@@ -81,7 +79,6 @@ testCelltype_paired <- function(Mat, celltype, pairsOfTimes, size=5) {
     ))
   }
   
-  # Filter cMat to only subjects with paired data
   cMat_plot <- cMat[subject %in% unique(subjects_with_pairs)]
   
     p <- ggplot(cMat_plot, aes(x = visit, y = Value, fill = visit)) +
